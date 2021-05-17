@@ -1,5 +1,6 @@
 import {Light} from "./lights/light";
 import {AmbianceLight} from "./lights/ambiancelight";
+import {getLight} from "./lights/factory";
 
 export class Engine {
 
@@ -8,14 +9,14 @@ export class Engine {
 
     // Variables
     private readonly url: string;
-    private readonly lights: Array<Light>;
+    private readonly lights: Array<Light> = [];
 
     constructor(args: CommandLineArguments) {
         // Construct the URL.
         this.url = `http://${args.ip}/api/${args.token}`;
 
-        // TODO: Implement a factory paradigm for building the lights array.
-        this.lights = [new AmbianceLight(`${this.url}/lights/2/`)];
+        // TODO: Retrieve which lights should be controlled from the CLI arguments.
+        getLight(`${this.url}/lights/2/`).then(light => this.lights.push(light));
     }
 
     /**
