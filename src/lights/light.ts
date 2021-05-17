@@ -24,7 +24,7 @@ export class Light {
     private async put(body: unknown) : Promise<Response> {
         return fetch(this.state, {
             method: 'PUT',
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
         });
     }
 
