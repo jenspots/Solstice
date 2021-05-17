@@ -21,7 +21,7 @@ export class Light {
      * Send a PUT request.
      * @param body The body of the request as JS object.
      */
-    private async put(body: unknown) : Promise<Response> {
+    protected async put(body: unknown) : Promise<Response> {
         return fetch(this.state, {
             method: 'PUT',
             body: JSON.stringify(body),
@@ -29,7 +29,7 @@ export class Light {
     }
 
     /** Send a GET request. */
-    private async get() : Promise<Response> {
+    protected async get() : Promise<Response> {
         return fetch(this.url);
     }
 
