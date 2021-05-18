@@ -10,6 +10,7 @@ export class Engine {
     // Variables
     private readonly url: string;
     private readonly lights: Array<Light> = [];
+    private readonly settingsSource: SettingsSource = new RandomSettingsSource();
 
     constructor(args: CommandLineArguments) {
         // Construct the URL.
@@ -25,7 +26,7 @@ export class Engine {
     async run(): Promise<void> {
         while (true) {
             // Retrieve the current required brightness and temperature.
-            const {brightness, temperature} = this.calculate();
+            const {brightness, temperature} = this.settingsSource.get();
 
             // Go over each light and set it's values accordingly.
             for (const light of this.lights) {
@@ -38,17 +39,6 @@ export class Engine {
             // Wait before reiterating.
             await new Promise(e => setTimeout(e, Engine.TIMEOUT));
         }
-    }
-
-    /**
-     * TODO: Return actual data.
-     * Calculates the currently required brightness and temperature.
-     */
-    calculate() : {brightness: number, temperature: number} {
-        return {
-            brightness: Math.floor(Math.random() * 255),
-            temperature: Math.floor(Math.random() * 4500) + 2000,
-        };
     }
 
 }
