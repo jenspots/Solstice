@@ -1,6 +1,7 @@
 import {Light} from "./lights/light";
 import {AmbianceLight} from "./lights/ambiancelight";
 import {getLight} from "./lights/factory";
+import {CommandLineArguments} from "./cli";
 
 export class Engine {
 
