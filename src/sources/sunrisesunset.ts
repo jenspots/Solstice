@@ -7,14 +7,16 @@ export class SunriseSunset implements SettingsSource {
 
     /** The requested location described as a Location instance. */
     private readonly location: Location;
+    private readonly date: () => Date;
 
     constructor(cli: CommandLineArguments) {
         this.location = cli.location;
+        this.date = cli.date;
     }
 
     private async request() : Promise<TimesOfDay> {
         // Retrieve data from API.
-        const res = await fetch(`https://api.sunrise-sunset.org/json?lat=${this.location.latitude}&lng=-${this.location.longitude}&date=today&formatted=0`);
+        const res = await fetch(`https://api.sunrise-sunset.org/json?lat=${this.location.latitude}&lng=-${this.location.longitude}&date=${this.date().toISOString()}&formatted=0`);
 
         // Interpret as JSON.
         const json = await res.json(); // TODO: Handle possible errors.
