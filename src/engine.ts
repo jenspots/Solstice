@@ -29,7 +29,7 @@ export class Engine {
     async run(): Promise<void> {
         while (true) {
             // Retrieve the current required brightness and temperature.
-            const {brightness, temperature} = this.settingsCalculator.get();
+            const {brightness, temperature} = await this.settingsCalculator.get();
 
             // Go over each light and set it's values accordingly.
             for (const light of this.lights) {
