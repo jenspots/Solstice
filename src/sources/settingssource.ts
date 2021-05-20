@@ -1,4 +1,4 @@
-import {TimesOfDay} from "./sources/timesofday";
+import {TimesOfDay} from "../timesofday";
 
 /**
  * Functional interface that defines a method to retrieve the current light settings/

@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import {CommandLineArguments, Location} from '../cli';
-import {TimesOfDay} from "./timesofday";
-import {SettingsSource} from "../settingssource";
+import {TimesOfDay} from "../timesofday";
+import {SettingsSource} from "./settingssource";
 
 /** Uses the https://sunrise-sunset.org/ API to calculate settings. */
 export class SunriseSunset implements SettingsSource {
