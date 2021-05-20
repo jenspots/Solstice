@@ -11,14 +11,16 @@ export class Engine {
     // Variables
     private readonly url: string;
     private readonly lights: Array<Light> = [];
-    private readonly settingsSource: SettingsSource = new RandomSettingsSource();
+    private readonly settingsCalculator: SettingsCalculator;
 
-    constructor(args: CommandLineArguments) {
+    constructor(args: CommandLineArguments, settingsCalculator: SettingsCalculator) {
         // Construct the URL.
         this.url = `http://${args.ip}/api/${args.token}`;
 
         // TODO: Retrieve which lights should be controlled from the CLI arguments.
         getLight(`${this.url}/lights/2/`).then(light => this.lights.push(light));
+
+        this.settingsCalculator = settingsCalculator;
     }
 
     /**
@@ -27,7 +29,7 @@ export class Engine {
     async run(): Promise<void> {
         while (true) {
             // Retrieve the current required brightness and temperature.
-            const {brightness, temperature} = this.settingsSource.get();
+            const {brightness, temperature} = this.settingsCalculator.get();
 
             // Go over each light and set it's values accordingly.
             for (const light of this.lights) {

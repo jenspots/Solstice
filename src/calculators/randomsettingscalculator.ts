@@ -1,7 +1,7 @@
 /**
- * Concrete implementation of SettingsSource that supplies random values for testing purposes.
+ * Concrete implementation of SettingsCalculator that supplies random values for testing purposes.
  */
-class RandomSettingsSource implements SettingsSource {
+class RandomSettingsCalculator implements SettingsCalculator {
 
     get() : {brightness: number, temperature: number} {
         return {

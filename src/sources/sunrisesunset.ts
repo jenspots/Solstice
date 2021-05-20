@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 import {CommandLineArguments, Location} from '../cli';
 import {TimesOfDay} from "./timesofday";
+import {SettingsSource} from "../settingssource";
 
 /** Uses the https://sunrise-sunset.org/ API to calculate settings. */
 export class SunriseSunset implements SettingsSource {
@@ -14,7 +15,7 @@ export class SunriseSunset implements SettingsSource {
         this.date = cli.date;
     }
 
-    private async request() : Promise<TimesOfDay> {
+    async get() : Promise<TimesOfDay> {
         // Retrieve data from API.
         const res = await fetch(`https://api.sunrise-sunset.org/json?lat=${this.location.latitude}&lng=-${this.location.longitude}&date=${this.date().toISOString()}&formatted=0`);
 
@@ -32,11 +33,6 @@ export class SunriseSunset implements SettingsSource {
             nauticalTwilightEnd: Date.fromString(json.results.nautical_twilight_end),
             astronomicalTwilightEnd: Date.fromString(json.results.astronomical_twilight_end),
         };
-    }
-
-    // TODO
-    get(): { brightness: number; temperature: number } {
-        return {brightness: 0, temperature: 0};
     }
 
 }

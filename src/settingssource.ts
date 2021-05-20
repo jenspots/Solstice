@@ -1,6 +1,8 @@
+import {TimesOfDay} from "./sources/timesofday";
+
 /**
  * Functional interface that defines a method to retrieve the current light settings/
  */
-interface SettingsSource {
-    get(): {brightness: number, temperature: number};
+export interface SettingsSource {
+    get(): Promise<TimesOfDay>;
 }
