@@ -1,15 +1,12 @@
 import fetch from 'node-fetch';
 import {CommandLineArguments, Location} from '../cli';
-
-export interface TimesOfDay {
-    // TODO
-}
+import {TimesOfDay} from "./timesofday";
 
 /** Uses the https://sunrise-sunset.org/ API to calculate settings. */
 export class SunriseSunset implements SettingsSource {
 
     /** The requested location described as a Location instance. */
-    private readonly location: Location = {latitude: 1.5643, longitude: 1.456};
+    private readonly location: Location;
 
     constructor(cli: CommandLineArguments) {
         this.location = cli.location;
@@ -23,7 +20,15 @@ export class SunriseSunset implements SettingsSource {
         const json = await res.json(); // TODO: Handle possible errors.
 
         return {
-            // TODO
+            sunrise: Date.fromString(json.results.sunrise),
+            sunset: Date.fromString(json.results.sunset),
+            solarNoon: Date.fromString(json.results.solar_noon),
+            civilTwilightBegin: Date.fromString(json.results.civil_twilight_begin),
+            nauticalTwilightBegin: Date.fromString(json.results.nautical_twilight_begin),
+            astronomicalTwilightBegin: Date.fromString(json.results.astronomical_twilight_begin),
+            civilTwilightEnd: Date.fromString(json.results.civil_twilight_end),
+            nauticalTwilightEnd: Date.fromString(json.results.nautical_twilight_end),
+            astronomicalTwilightEnd: Date.fromString(json.results.astronomical_twilight_end),
         };
     }
 
