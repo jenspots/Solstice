@@ -20,6 +20,14 @@ declare global {
          * @param end
          */
         progress(start: Date, end: Date) : number;
+
+        /**
+         * Calculate the progress of this Date instance between two other Date objects without taking year, month, and
+         * and day into consideration.
+         * @param start
+         * @param end
+         */
+        progressTime(start: Date, end: Date) : number;
     }
 }
 
@@ -45,6 +53,14 @@ Date.prototype.progress = function(start: Date, end: Date) : number {
 
     // Simple calculation that returns the progress.
     return (this.getTime() - start.getTime()) / (end.getTime() - start.getTime());
+};
+
+Date.prototype.progressTime = function(start: Date, end: Date) : number {
+    const _start = new Date(start);
+    _start.setUTCFullYear(this.getUTCFullYear(), this.getUTCMonth(), this.getUTCDate());
+    const _end = new Date(end);
+    _end.setUTCFullYear(this.getUTCFullYear(), this.getUTCMonth(), this.getUTCDate());
+    return this.progress(_start, _end);
 };
 
 export {};
