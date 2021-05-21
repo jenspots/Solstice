@@ -28,6 +28,18 @@ declare global {
          * @param end
          */
         progressTime(start: Date, end: Date) : number;
+
+        /**
+         * Return a new Date object that has advanced a given amount of minutes.
+         * @param minutes How many minutes to progress the new Date instance.
+         */
+        addMinutes(minutes: number) : Date
+
+        /**
+         * Return a new Date object that has advanced a given amount of hours.
+         * @param hours How many hours to progress the new Date instance.
+         */
+        addHours(hours: number) : Date
     }
 }
 
@@ -61,6 +73,18 @@ Date.prototype.progressTime = function(start: Date, end: Date) : number {
     const _end = new Date(end);
     _end.setUTCFullYear(this.getUTCFullYear(), this.getUTCMonth(), this.getUTCDate());
     return this.progress(_start, _end);
+};
+
+Date.prototype.addMinutes = function(minutes: number) : Date {
+    const result = new Date(this);
+    result.setUTCMinutes(result.getUTCMinutes() + minutes);
+    return result;
+};
+
+Date.prototype.addHours = function(hours: number) : Date {
+    const result = new Date(this);
+    result.setUTCHours(result.getUTCMinutes() + hours);
+    return result;
 };
 
 export {};
