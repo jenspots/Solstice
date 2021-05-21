@@ -1,5 +1,4 @@
 import {Light} from "./lights/light";
-import {AmbianceLight} from "./lights/ambiancelight";
 import {getLight} from "./lights/factory";
 import {CommandLineArguments} from "./cli";
 import {SystemClock} from "./systemclock";
@@ -34,14 +33,11 @@ export class Engine {
     async run(): Promise<void> {
         while (true) {
             // Retrieve the current required brightness and temperature.
-            const {brightness, temperature} = await this.settingsCalculator.get();
+            const state = await this.settingsCalculator.get();
 
             // Go over each light and set it's values accordingly.
             for (const light of this.lights) {
-                if (light instanceof AmbianceLight) {
-                    light.colorTemperature(temperature);
-                }
-                light.brightnessAbsolute(brightness);
+                light.setState(state);
             }
 
             // Wait before reiterating.

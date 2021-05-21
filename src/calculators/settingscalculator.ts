@@ -1,6 +1,6 @@
-/**
- * Functional interface that defines a method to retrieve the current light settings.
- */
+import {State} from "../lights/state";
+
+/** Functional interface that defines a method to retrieve the current light settings. */
 export interface SettingsCalculator {
-    get(): Promise<{brightness: number, temperature: number}>;
+    get(): Promise<State>;
 }
