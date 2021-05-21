@@ -1,0 +1,47 @@
+{
+  "sunrise": {
+    "brightness": 127,
+    "temperature": 2700,
+    "power": true
+  },
+  "sunset": {
+    "brightness": 127,
+    "temperature": 2700,
+    "power": true
+  },
+  "solarNoon": {
+    "brightness": 255,
+    "temperature": 6500,
+    "power": true
+  },
+  "civilTwilightBegin": {
+    "brightness": 0,
+    "temperature": 2000,
+    "power": true
+  },
+  "nauticalTwilightBegin": {
+    "brightness": 0,
+    "temperature": 2000,
+    "power": true
+  },
+  "astronomicalTwilightBegin": {
+    "brightness": 0,
+    "temperature": 2000,
+    "power": true
+  },
+  "civilTwilightEnd": {
+    "brightness": 0,
+    "temperature": 2000,
+    "power": true
+  },
+  "nauticalTwilightEnd": {
+    "brightness": 0,
+    "temperature": 2000,
+    "power": true
+  },
+  "astronomicalTwilightEnd": {
+    "brightness": 0,
+    "temperature": 2000,
+    "power": true
+  }
+}
