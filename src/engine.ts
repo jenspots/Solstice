@@ -15,14 +15,17 @@ export class Engine {
     private readonly lights: Array<Light> = [];
     private readonly settingsCalculator: SettingsCalculator;
 
-    constructor(args: CommandLineArguments, settingsCalculator: SettingsCalculator) {
+    constructor(args: CommandLineArguments) {
         // Construct the URL.
         this.url = `http://${args.ip}/api/${args.token}`;
 
-        // TODO: Retrieve which lights should be controlled from the CLI arguments.
-        getLight(`${this.url}/lights/2/`).then(light => this.lights.push(light));
+        // Retrieve a light for each element in args.lights.
+        for (const index of args.lights) {
+            getLight(`${this.url}/lights/${index}/`).then(light => this.lights.push(light));
+        }
 
-        this.settingsCalculator = settingsCalculator;
+        // Assign the SettingsCalculator.
+        this.settingsCalculator = args.settingsCalculator;
     }
 
     /**

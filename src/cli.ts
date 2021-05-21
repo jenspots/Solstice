@@ -16,6 +16,12 @@ export interface CommandLineArguments {
      * this has to be a function since this allows to define a lambda which returns the current day and therefore is not
      * constant variable.*/
     date: () => Date,
+
+    /** Array containing the identifiers of the lights that need to be controlled.*/
+    lights: Array<number>,
+
+    /** Which SettingsCalculator instance that needs to be used. */
+    settingsCalculator: SettingsCalculator,
 }
 
 /** Data class that holds a two dimensional location. */
