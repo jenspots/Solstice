@@ -1,6 +1,8 @@
 /**
  * Concrete implementation of SettingsCalculator that supplies random values for testing purposes.
  */
+import {SettingsCalculator} from "./settingscalculator";
+
 class RandomSettingsCalculator implements SettingsCalculator {
 
     async get() : Promise<{brightness: number, temperature: number}> {

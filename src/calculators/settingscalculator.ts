@@ -1,6 +1,6 @@
 /**
  * Functional interface that defines a method to retrieve the current light settings.
  */
-interface SettingsCalculator {
+export interface SettingsCalculator {
     get(): Promise<{brightness: number, temperature: number}>;
 }

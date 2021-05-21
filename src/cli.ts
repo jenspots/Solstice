@@ -1,4 +1,6 @@
 /** Interfaces that contain all the parameters that may be provided at launch. */
+import {SettingsCalculator} from "./calculators/settingscalculator";
+
 export interface CommandLineArguments {
 
     /** The IP address of the Hue bridge. */

@@ -2,6 +2,8 @@ import {Light} from "./lights/light";
 import {AmbianceLight} from "./lights/ambiancelight";
 import {getLight} from "./lights/factory";
 import {CommandLineArguments} from "./cli";
+import {SystemClock} from "./systemclock";
+import {SettingsCalculator} from "./calculators/settingscalculator";
 
 export class Engine {
 
