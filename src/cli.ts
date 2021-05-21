@@ -1,5 +1,6 @@
 /** Interfaces that contain all the parameters that may be provided at launch. */
 import {SettingsCalculator} from "./calculators/settingscalculator";
+import {SettingsSource} from "./sources/settingssource";
 
 export interface CommandLineArguments {
 
