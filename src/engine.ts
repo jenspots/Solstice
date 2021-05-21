@@ -24,7 +24,7 @@ export class Engine {
         }
 
         // Assign the SettingsCalculator.
-        this.settingsCalculator = args.settingsCalculator;
+        this.settingsCalculator = args.settingsCalculator(args.settingsSource());
     }
 
     /**

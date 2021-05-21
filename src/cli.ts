@@ -20,8 +20,11 @@ export interface CommandLineArguments {
     /** Array containing the identifiers of the lights that need to be controlled.*/
     lights: Array<number>,
 
-    /** Which SettingsCalculator instance that needs to be used. */
-    settingsCalculator: SettingsCalculator,
+    /** Function that allows for the creation of a SettingsCalculator instance. */
+    settingsCalculator: (source: SettingsSource) => SettingsCalculator,
+
+    /** Function that allows for the creation of a SettingsSource instance. */
+    settingsSource: () => SettingsSource
 }
 
 /** Data class that holds a two dimensional location. */
