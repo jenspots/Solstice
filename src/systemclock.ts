@@ -16,4 +16,9 @@ export class SystemClock {
         return SystemClock.instance;
     }
 
+    /** Sets the SystemClock instance to the current time. */
+    public static align(): void {
+        SystemClock.instance = new Date();
+    }
+
 }
