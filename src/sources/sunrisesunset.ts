@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import {CommandLineArguments, Location} from '../cli';
+import {Arguments, Location} from '../cli';
 import {TimesOfDay} from "../timesofday";
 import {SettingsSource} from "./settingssource";
 import {SystemClock} from "../systemclock";
@@ -20,7 +20,8 @@ export class SunriseSunset implements SettingsSource {
     /** Cached TimesOfDay instance. */
     private cache: TimesOfDay | null = null;
 
-    constructor(cli: CommandLineArguments) {
+    constructor() {
+        const cli = Arguments.getInstance();
         this.location = cli.location;
         this.date = cli.date;
     }

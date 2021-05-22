@@ -1,6 +1,6 @@
 import {Light} from "./lights/light";
 import {getLight} from "./lights/factory";
-import {CommandLineArguments} from "./cli";
+import {Arguments, CommandLineArguments} from "./cli";
 import {SystemClock} from "./systemclock";
 import {SettingsCalculator} from "./calculators/settingscalculator";
 
@@ -17,7 +17,9 @@ export class Engine {
     private readonly lights: Array<Light> = [];
     private readonly settingsCalculator: SettingsCalculator;
 
-    constructor(args: CommandLineArguments) {
+    constructor() {
+        const args = Arguments.getInstance();
+
         // Construct the URL.
         this.url = `http://${args.ip}/api/${args.token}`;
 

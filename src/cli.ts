@@ -37,3 +37,20 @@ export interface Location {
     /** Latitude as a floating number. */
     latitude: number,
 }
+
+export class Arguments {
+
+    private static instance: CommandLineArguments;
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    private constructor() {}
+
+    public static getInstance(): CommandLineArguments {
+        return Arguments.instance;
+    }
+
+    public static setInstance(cli: CommandLineArguments): void {
+        Arguments.instance = cli;
+    }
+
+}
