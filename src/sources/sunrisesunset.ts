@@ -2,12 +2,13 @@ import fetch from 'node-fetch';
 import {CommandLineArguments, Location} from '../cli';
 import {TimesOfDay} from "../timesofday";
 import {SettingsSource} from "./settingssource";
+import {SystemClock} from "../systemclock";
 
 /** Uses the https://sunrise-sunset.org/ API to calculate settings. */
 export class SunriseSunset implements SettingsSource {
 
     /** How long a TimesOfDay object may be cached in minutes. */
-    private static readonly TIME_TO_LIVE: number = 120;
+    private static readonly TIME_TO_LIVE: number = 8 * 60;
 
     /** The requested location described as a Location instance. */
     private readonly location: Location;
@@ -26,10 +27,10 @@ export class SunriseSunset implements SettingsSource {
 
     /** Indicates whether or not the cache is still valid using TIME_TO_LIVE. */
     private expired() : boolean {
-        if (!this.ageOfCache) {
-            return false;
+        if (!this.ageOfCache || !this.cache) {
+            return true;
         }
-        return this.date() >= this.ageOfCache.addMinutes(SunriseSunset.TIME_TO_LIVE);
+        return SystemClock.getInstance() >= this.ageOfCache.addMinutes(SunriseSunset.TIME_TO_LIVE);
     }
 
     async get() : Promise<TimesOfDay> {
@@ -44,6 +45,10 @@ export class SunriseSunset implements SettingsSource {
         // Interpret as JSON.
         const json = await res.json(); // TODO: Handle possible errors.
 
+        // Update the cache age.
+        this.ageOfCache = new Date(SystemClock.getInstance());
+
+        // Assign the cache.
         this.cache = {
             sunrise: Date.fromString(json.results.sunrise),
             sunset: Date.fromString(json.results.sunset),
