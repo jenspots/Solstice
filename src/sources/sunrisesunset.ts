@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import {Arguments, Location} from '../cli';
 import {TimesOfDay} from "../timesofday";
 import {SettingsSource} from "./settingssource";
-import {SystemClock} from "../systemclock";
+import {ApplicationClock} from "../applicationclock";
 
 /** Uses the https://sunrise-sunset.org/ API to calculate settings. */
 export class SunriseSunset implements SettingsSource {
@@ -31,7 +31,7 @@ export class SunriseSunset implements SettingsSource {
         if (!this.ageOfCache || !this.cache) {
             return true;
         }
-        return SystemClock.getInstance() >= this.ageOfCache.addMinutes(SunriseSunset.TIME_TO_LIVE);
+        return ApplicationClock.get() >= this.ageOfCache.addMinutes(SunriseSunset.TIME_TO_LIVE);
     }
 
     async get() : Promise<TimesOfDay> {
@@ -47,7 +47,7 @@ export class SunriseSunset implements SettingsSource {
         const json = await res.json(); // TODO: Handle possible errors.
 
         // Update the cache age.
-        this.ageOfCache = new Date(SystemClock.getInstance());
+        this.ageOfCache = new Date(ApplicationClock.get());
 
         // Assign the cache.
         this.cache = {
