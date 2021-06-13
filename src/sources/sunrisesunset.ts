@@ -32,11 +32,11 @@ export class SunriseSunset implements TimeSource {
 
         /* Retrieve data from API. */
         const res = await fetch(
-            `https://api.sunrise-sunset.org/json?
-            lat=${location.latitude}&
-            lng=-${location.longitude}&
-            date=${ApplicationClock.get().toISOString()}
-            &formatted=0`
+            `https://api.sunrise-sunset.org/json?` +
+            `lat=${location.latitude}&` +
+            `lng=-${location.longitude}&` +
+            `date=${ApplicationClock.get().toISOString()}` +
+            `&formatted=0`
         );
 
         /* Interpret as JSON. */
