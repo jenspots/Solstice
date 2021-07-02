@@ -30,6 +30,8 @@ export class SunriseSunset implements TimeSource {
             return this.cache;
         }
 
+        console.log("Calculating solar times.");
+
         /* Retrieve data from API. */
         const res = await fetch(
             `https://api.sunrise-sunset.org/json?` +
