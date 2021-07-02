@@ -16,9 +16,15 @@ export class ApplicationClock {
         return ApplicationClock.instance;
     }
 
-    /** Sets the Applicationclock instance to the current time. */
+    /** Sets the ApplicationClock instance to the current time. */
     public static align(): void {
         ApplicationClock.instance = new Date();
+    }
+
+    /* Progresses the time a certain amount of minutes. For debugging only. */
+    public static addMinutes(minutes: number) : void {
+        if (ApplicationClock.instance === undefined) ApplicationClock.align();
+        ApplicationClock.instance = ApplicationClock.instance.addMinutes(minutes);
     }
 
 }
