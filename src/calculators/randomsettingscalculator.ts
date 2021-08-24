@@ -4,7 +4,7 @@ import {Configuration} from "../configurations/configuration";
 import {TimesOfDay} from "../timesofday";
 
 /** Concrete implementation of SettingsCalculator that supplies random values for testing purposes. */
-class RandomSettingsCalculator implements SettingsCalculator {
+export class RandomSettingsCalculator implements SettingsCalculator {
 
     async get(timesOfDay: TimesOfDay, configuration: Configuration): Promise<State> {
         return {

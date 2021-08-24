@@ -20,14 +20,14 @@
     "power": true
   },
   "nauticalTwilightBegin": {
-    "brightness": 31,
-    "temperature": 2100,
+    "brightness": 0,
+    "temperature": 2000,
     "power": true
   },
   "astronomicalTwilightBegin": {
     "brightness": 0,
     "temperature": 2000,
-    "power": false
+    "power": true
   },
   "civilTwilightEnd": {
     "brightness": 63,
@@ -35,9 +35,9 @@
     "power": true
   },
   "nauticalTwilightEnd": {
-    "brightness": 31,
-    "temperature": 2100,
-    "power": true
+    "brightness": 0,
+    "temperature": 2000,
+    "power": false
   },
   "astronomicalTwilightEnd": {
     "brightness": 0,

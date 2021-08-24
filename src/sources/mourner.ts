@@ -12,8 +12,8 @@ export class Mourner implements TimeSource {
         result.civilTwilightEnd = result.dusk;
         result.nauticalTwilightBegin = result.nauticalDawn;
         result.nauticalTwilightEnd = result.nauticalDusk;
-        result.astronomicalTwilightBegin = result.night;
-        result.astronomicalTwilightEnd = result.nightEnd;
+        result.astronomicalTwilightBegin = result.nightEnd;
+        result.astronomicalTwilightEnd = result.night;
         return result;
     }
 }

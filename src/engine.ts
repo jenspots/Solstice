@@ -3,9 +3,8 @@ import {getLight} from "./lights/factory";
 import {CommandLineArguments, Location} from "./cli";
 import {ApplicationClock} from "./applicationclock";
 import {SettingsCalculator} from "./calculators/settingscalculator";
-import {SunriseSunset} from "./sources/sunrisesunset";
-import {TimeSource} from "./sources/timesource";
 import {LinearCalculator} from "./calculators/linearcalculator";
+import {TimeSource} from "./sources/timesource";
 import {Configuration} from "./configurations/configuration";
 import {Mourner} from "./sources/mourner";
 
@@ -15,7 +14,7 @@ export class Engine {
     private static readonly TIMEOUT: number = 1000; //60 * 1000;
 
     /** How much time to advance the SystemClock per tick in minutes. */
-    private static readonly ADVANCE: number = 30;
+    private static readonly ADVANCE: number = 10;
 
     // Variables
     private readonly baseURL: string;
@@ -31,7 +30,7 @@ export class Engine {
         this.timeSource = new Mourner();
         this.settingsCalculator = new LinearCalculator();
         this.lights = [];
-        this.configuration = Configuration.load("./src/configurations/dummy.json");
+        this.configuration = Configuration.load("./configurations/dummy.json");
 
         // Retrieve a light for each element in args.lights.
         for (const index of args.lights) {
@@ -45,24 +44,32 @@ export class Engine {
             // Chang the ApplicationClock to the current time or advance it by Engine.ADVANCE minutes.
             if (Engine.ADVANCE == 0) ApplicationClock.align();
             else ApplicationClock.addMinutes(Engine.ADVANCE);
-
             console.log(`Application Time: ${ApplicationClock.get().toLocaleString("nl-BE")}`);
+
+            // Wait for the current tick to end or the timeout, whichever ends last
             await Promise.all([
                 this.tick(),
                 new Promise(e => setTimeout(e, Engine.TIMEOUT)),
             ]);
+
             console.log(''); // newline
         }
     }
 
     /** Retrieves the current requested state and sets the lights to match that State instance. */
     private async tick(): Promise<void[]> {
-        const timesOfDay = this.timeSource.get(this.location);
-        const state = await this.settingsCalculator.get(await timesOfDay, this.configuration);
+        try {
+            const timesOfDay = this.timeSource.get(this.location);
+            const state = await this.settingsCalculator.get(await timesOfDay, this.configuration);
+            console.log(state);
 
-        return Promise.all(
-            this.lights.map(light => light.setState(state))
-        );
+            return Promise.all(
+                this.lights.map(light => light.setState(state))
+            );
+        } catch (noStateException) {
+            console.log("No state found. Continuing..");
+            return Promise.all([]);
+        }
     }
 
 }
