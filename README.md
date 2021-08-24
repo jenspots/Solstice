@@ -1,4 +1,4 @@
-# Solstice
+![Banner](https://user-images.githubusercontent.com/38297449/130655212-266b8f56-a2bb-4e1f-9640-f2772ece71d2.jpg)
 
 ## The problem.
 
