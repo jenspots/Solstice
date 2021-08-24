@@ -11,10 +11,10 @@ import {Mourner} from "./sources/mourner";
 export class Engine {
 
     /** How much time needs to pass before performing a tick. */
-    private static readonly TIMEOUT: number = 1000; //60 * 1000;
+    private TIMEOUT: number;
 
     /** How much time to advance the SystemClock per tick in minutes. */
-    private static readonly ADVANCE: number = 10;
+    private ADVANCE: number;
 
     // Variables
     private readonly baseURL: string;
@@ -25,6 +25,9 @@ export class Engine {
     private readonly configuration: Configuration;
 
     constructor(args: CommandLineArguments) {
+        this.TIMEOUT = Number.parseInt(process.env.TIMEOUT as string);
+        this.ADVANCE = Number.parseInt(process.env.ADVANCE as string);
+
         this.baseURL = `http://${args.ip}/api/${args.token}`;
         this.location = args.location;
         this.timeSource = new Mourner();
@@ -42,14 +45,14 @@ export class Engine {
     async run() : Promise<void> {
         while (true) {
             // Chang the ApplicationClock to the current time or advance it by Engine.ADVANCE minutes.
-            if (Engine.ADVANCE == 0) ApplicationClock.align();
-            else ApplicationClock.addMinutes(Engine.ADVANCE);
+            if (this.ADVANCE == 0) ApplicationClock.align();
+            else ApplicationClock.addMinutes(this.ADVANCE);
             console.log(`Application Time: ${ApplicationClock.get().toLocaleString("nl-BE")}`);
 
             // Wait for the current tick to end or the timeout, whichever ends last
             await Promise.all([
                 this.tick(),
-                new Promise(e => setTimeout(e, Engine.TIMEOUT)),
+                new Promise(e => setTimeout(e, this.TIMEOUT)),
             ]);
 
             console.log(''); // newline
